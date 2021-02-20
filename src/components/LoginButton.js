@@ -1,10 +1,12 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
+import "../css/LoginButton.css"
 
 const LoginButton = () => {
     return (
-        <div>
-            Testing LoginButton
-        </div>
+        // onClick should be changed later
+        <button onClick={() => { alert('Pretend this is the Google signup popup') } }>
+            Sign in With Google
+        </button>
     )
 }
 
