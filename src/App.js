@@ -4,6 +4,7 @@ import LandingPage from './pages/LandingPage'
 import { Route, Switch, BrowserRouter as Router, useLocation } from "react-router-dom";
 import ClassCard from "./components/ClassCard";
 import ClassGroupChat from './components/ClassGroupChat'
+// import Sidebar from './components/Sidebar'
 import styles from "./css/app.module.css"
 
 // import GetClasses from "./components/GetClasses"
@@ -11,7 +12,9 @@ import styles from "./css/app.module.css"
 function App() {
   return (
     <div className={styles.app}>
+
       <Router>
+        {/* <Sidebar></Sidebar> */}
         <Switch>
           <Route
             exact path={"/"}
@@ -22,9 +25,12 @@ function App() {
             exact path={"/Landing"}
             component={LandingPage}
           />
+
           <Route
             exact path="/Landing/:classId" component={ClassGroupChat}
           />
+
+
         </Switch>
       </Router>
     </div>

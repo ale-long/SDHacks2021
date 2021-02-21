@@ -4,16 +4,18 @@ import { provider, firebaseApp } from '../firebase'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { useHistory } from 'react-router-dom';
 import { PROVIDER_ID } from '../config'
+import { Button } from 'reactstrap'
 import firebase from 'firebase';
 
 const LoginPage = () => {
 
-    const onSubmit = () => {
-        firebaseApp.auth().signInWithPopup(provider)
-            .then(result => {
-                console.log(result.user);
-            }).catch(console.log);
-    }
+    // const signIn = () => {
+    //     firebase.auth()
+    //         .signInWithPopup(provider)
+    //         .then(result => {
+    //             console.log(result.user.displayName);
+    //         }).catch(console.log);
+    // }
 
     const uiConfig = {
         signInFlow: 'popup',
@@ -26,6 +28,9 @@ const LoginPage = () => {
     return (
         <div className={styles.background}>
             <h1 style={{ fontSize: "70px", textAlign: "center", marginTop: "15%", fontFamily: "Arial", color: "white" }}>Welcome to StudentConnect</h1>
+            {/* <Button onClick={signIn}>
+                Sign In
+            </Button> */}
             <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
         </div>
     )

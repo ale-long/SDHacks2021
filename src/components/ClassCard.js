@@ -4,8 +4,23 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from "../css/ClassCard.module.css"
 import { Card, CardText, CardBody, Container, Row, Col, CardDeck, CardTitle, CardSubtitle, CardColumns, Button } from 'reactstrap';
 import { motion } from "framer-motion";
+import { db } from '../firebase'
+import firebase from "firebase";
+import "firebase/auth";
+
 
 const ClassCard = (props) => {
+
+    const user = firebase.auth().currentUser;
+    const ref = db.collection('users').doc(user.email);
+    const addClass = () => {
+        console.log('adding class' + props.id + ' ' + props.name);
+        let data = { id: props.id, name: props.cname };
+        ref.update({
+            joined: firebase.firestore.FieldValue.arrayUnion(data)
+        });
+    }
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -14,7 +29,7 @@ const ClassCard = (props) => {
             }}
             transition={{
                 duration: 0.2,
-                delay: props.counter * 0.1
+                delay: props.counter * 0.12
             }}>
             <div>
                 <Card className={styles.ClassCard}>
@@ -23,7 +38,7 @@ const ClassCard = (props) => {
                         <CardSubtitle tag="h6" className="mb-2 text-muted">{props.prof}</CardSubtitle>
                         <CardText>{props.desc}</CardText>
                         <Link to={`/Landing/${props.id}`}>
-                            <Button>Join Class</Button>
+                            <Button onClick={addClass}>Join Class</Button>
                         </Link>
                     </CardBody>
                 </Card>
