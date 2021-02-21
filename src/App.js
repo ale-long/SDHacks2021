@@ -1,24 +1,29 @@
 import React from 'react'
 import LoginPage from './pages/LoginPage'
 import LandingPage from './pages/LandingPage'
-import {Route, Switch, BrowserRouter as Router, useLocation} from "react-router-dom";
-import GetClasses from './components/GetClasses'
-import RouteTestComponent from "./components/RouteTestComponent";
+import { Route, Switch, BrowserRouter as Router, useLocation } from "react-router-dom";
+import ClassCard from "./components/ClassCard";
+import ClassGroupChat from './components/ClassGroupChat'
+import styles from "./css/app.module.css"
+
+// import GetClasses from "./components/GetClasses"
 // Put all the page components here
 function App() {
   return (
-    <div>
-      <GetClasses/>
+    <div className={styles.app}>
       <Router>
         <Switch>
           <Route
-            exact path = {"/"}
+            exact path={"/"}
             component={LoginPage}
           />
-        
+
           <Route
-            exact path={"/class"}
-            component={RouteTestComponent}
+            exact path={"/Landing"}
+            component={LandingPage}
+          />
+          <Route
+            exact path="/Landing/:classId" component={ClassGroupChat}
           />
         </Switch>
       </Router>

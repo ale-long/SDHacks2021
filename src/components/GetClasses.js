@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import firebase from "../firebase";
+import React, { useState, useEffect } from 'react';
+import { db } from "../firebase";
 
 const GetClasses = () => {
     const [classes, setClasses] = useState([]);
-    const ref = firebase.collection('classes');
+    const ref = db.collection('classes');
     function getClasses() {
         ref.onSnapshot((querySnapshot) => {
             const classes_list = [];
@@ -14,8 +14,8 @@ const GetClasses = () => {
             setClasses(classes_list);
         });
     }
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         getClasses();
     }, [classes]);
 
@@ -23,7 +23,7 @@ const GetClasses = () => {
     return (
         <div>
             <h1>Classes</h1>
-            {classes.map((classs) => (
+            {classes.map(classs => (
                 <div key={classs.id}>
                     <h2>{classs.name}</h2>
                     <p>{classs.prof}</p>
