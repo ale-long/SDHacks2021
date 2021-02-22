@@ -8,7 +8,7 @@ import JoinedClassesButton from "./JoinedClassesButton";
 import { Container, Col } from "reactstrap";
 import { db } from '../firebase'
 
-import { slide as Menu } from 'react-burger-menu';
+import { elastic as Menu } from 'react-burger-menu';
 
 const Sidebar = props => {
     // let email, photoUrl, uid;
@@ -24,7 +24,7 @@ const Sidebar = props => {
     // };
     // classes.push({ id: '', name: 'Home' });
 
-    firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(user => {
         if (user) {
             setUser(user);
         } else {
@@ -103,7 +103,7 @@ const Sidebar = props => {
     }, [user]);
 
     return (
-        <Menu>
+        <Menu customBurgerIcon={<img src={user.photoURL} />}>
             {user != null ? <h3>{user.displayName}</h3> : <h3>Please sign in.</h3>}
             <h2>Your Classes</h2>
             <Container>
