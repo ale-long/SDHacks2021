@@ -15,6 +15,9 @@ const ClassCard = (props) => {
     const ref = db.collection('users').doc(user.email);
     const addClass = () => {
         console.log('adding class' + props.id + ' ' + props.name);
+        ref.set({
+            visited: true
+        }, { merge: true });
         let data = { id: props.id, name: props.cname };
         ref.update({
             joined: firebase.firestore.FieldValue.arrayUnion(data)

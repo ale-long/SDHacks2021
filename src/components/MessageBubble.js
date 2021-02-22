@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 
 const MessageBubble = (props) => {
-    // console.log('props:' + props.message[0]);
+    console.log('props:' + props.content);
     // props.message.forEach(element => {
     //     console.log(element.content);
     // })

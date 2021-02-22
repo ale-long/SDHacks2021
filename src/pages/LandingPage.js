@@ -12,6 +12,7 @@ const LandingPage = () => {
     const getOptions = {
         source: 'default'
     };
+
     function getClasses() {
         ref.get(getOptions).then((query) => {
             const classes_list = [];

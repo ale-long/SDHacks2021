@@ -13,13 +13,25 @@ import { slide as Menu } from 'react-burger-menu';
 const Sidebar = props => {
     // let email, photoUrl, uid;
     const [classes, setClasses] = useState([]);
+    const [user, setUser] = useState(false);
     const ref = db.collection('users');
     const classRef = db.collection('classes');
+    const getOptions = {
+        source: 'default'
+    };
     // const getOptions = {
     //     source: 'default'
     // };
     // classes.push({ id: '', name: 'Home' });
 
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            setUser(user);
+        } else {
+            signed_user_name = 'filler name';
+            signed_user_email = 'filler email'
+        }
+    });
     // if (classes.length == 0) {
     //     classes.push({ id: '', name: 'Home' });
     // }
@@ -33,19 +45,20 @@ const Sidebar = props => {
     //     console.log(classes);
     // }
 
-    async function getClasses() {
-        let user = await firebase.auth().currentUser;
-        const ref = db.collection('users');
-        const classRef = db.collection('classes');
-        const getOptions = {
-            source: 'default'
-        };
-        ref.doc(firebase.auth().currentUser.email).get().then(doc => {
-            console.log(doc.data());
-            const classes_list = doc.data().joined;
-            setClasses(classes_list);
-        }).catch(console.log);
-    }
+    let signed_user_name = '';
+    let signed_user_email = '';
+
+    // async function getClasses() {
+    //     // let user = await firebase.auth().currentUser;
+    //     const ref = db.collection('users');
+    //     const classRef = db.collection('classes');
+
+    //     ref.doc(signed_user_email).get().then(doc => {
+    //         console.log(doc.data());
+    //         const classes_list = doc.data().joined;
+    //         setClasses(classes_list);
+    //     }).catch(console.log);
+    // }
 
     // // function getClasses() {
     // //     ref.doc(user.email).get(getOptions).then((query) => {
@@ -68,19 +81,37 @@ const Sidebar = props => {
     // }
 
     useEffect(() => {
-        getClasses();
-    }, []);
+        ref.doc(user.email).get().then(doc => {
+            console.log(doc.data());
+            const classes_list = doc.data().joined;
+            setClasses(classes_list);
+        }).catch(console.log);
+        // firebase.auth().onAuthStateChanged(function (user) {
+        //     if (user) {
+        //         setUser(user);
+        //         ref.doc(user.email).get().then(doc => {
+        //             console.log(doc.data());
+        //             const classes_list = doc.data().joined;
+        //             setClasses(classes_list);
+        //         }).catch(console.log);
+        //     } else {
+        //         signed_user_name = 'filler name';
+        //         signed_user_email = 'filler email'
+        //     }
+        // });
+        // getClasses();
+    }, [user]);
 
     return (
         <Menu>
-            <h3>{firebase.auth().currentUser.displayName}</h3>
+            {user != null ? <h3>{user.displayName}</h3> : <h3>Please sign in.</h3>}
             <h2>Your Classes</h2>
             <Container>
                 <Col style={{ alignItems: "center", justifyContent: "center" }}>
                     {/* <JoinedClassesButton id='' joinedClassName='Home'></JoinedClassesButton> */}
                     {classes != null ? classes.map(classs => {
                         return <JoinedClassesButton id={classs.id} joinedClassName={classs.name}></JoinedClassesButton>
-                    }) : <JoinedClassesButton id='' joinedClassName='Home'></JoinedClassesButton>}
+                    }) : <JoinedClassesButton id='' joinedClassName='Join a class!'></JoinedClassesButton>}
 
                     {/* {classes.map(classs => {
                         return <JoinedClassesButton id={classs.id} joinedClassName={classs.name}></JoinedClassesButton>

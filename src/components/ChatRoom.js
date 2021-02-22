@@ -13,18 +13,19 @@ const ChatRoom = (props) => {
         }
     }).catch(console.log("error"))
 
-    // useEffect(() => {
-    //     firebaseApp.firestore().collection('chatroom').onSnapshot(snapshot => {
-    //         let message_list = [];
-    //         snapshot.docs.map(doc => message_list.push(doc.data().messages));
-    //         setMessageList(message_list);
-    //     })
-    // }, [])
+    useEffect(() => {
+        firebaseApp.firestore().collection('chatroom').onSnapshot(snapshot => {
+            let message_list = [];
+            snapshot.docs.map(doc => message_list.push(doc.data().messages));
+            setMessageList(message_list);
+        })
+    }, [])
 
     return (
         <div>
-            {/* {console.log(messageList[0])} */}
+            {console.log(messageList[0])}
             {messageList.map(message => {
+                console.log("content" + message.content);
                 return (<MessageBubble content={message.content} name={message.name} />);
                 // // console.log(message)
                 // let i;
