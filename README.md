@@ -1,3 +1,5 @@
+# Student Connect
+devpost: https://devpost.com/software/student-connect-ynv42c/
 ## Inspiration
 A web app that aggregates class group chats and provides their respective discord links or any other links so students would not have to spam FB group pages asking if certain gc have been made yet. This would save time and eliminate the inefficiency of having students post on top of each other on FB. 
 ## What it does
